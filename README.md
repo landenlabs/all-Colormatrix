@@ -24,7 +24,7 @@ Android ColorMatrix
 
 **Red Filters** 
 
-<img src="http://landenlabs.com/android/all-colormatrix/red.jpg)
+<img src="http://landenlabs.com/android/all-colormatrix/red.jpg">
 
 [To Top](#table)
 
@@ -32,7 +32,7 @@ Android ColorMatrix
  
 **Gray Filters** 
 
-<img src="http://landenlabs.com/android/all-colormatrix/gray.jpg)
+<img src="http://landenlabs.com/android/all-colormatrix/gray.jpg">
 
 [To Top](#table)
 
@@ -40,7 +40,7 @@ Android ColorMatrix
  
 **Invert Filters** 
 
-<img src="http://landenlabs.com/android/all-colormatrix/invert.jpg)
+<img src="http://landenlabs.com/android/all-colormatrix/invert.jpg">
 
 [To Top](#table)
 
