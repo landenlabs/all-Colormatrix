@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="CompatSeekBar" format="reference" />
+    <declare-styleable name="SeekBarExt1">
+
+        <attr name="tickMin" format="integer" />
+        <attr name="tickMax" format="integer" />
+        <attr name="tickStep" format="integer" />
+        <attr name="tickWidth" format="integer" />
+        <attr name="showTick" format="boolean" />
+        <attr name="tickColor" format="color" />
+        <attr name="tickUnder" format="boolean" />
+
+        <!-- Warning attribute "tickMark" is already used by SeekBar so use tickMarker -->
+        <attr name="tickMarker" format="reference" />
+    </declare-styleable>
+
+</resources>

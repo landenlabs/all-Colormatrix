@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">all-ColorMatrix</string>
+    <string name="bottomnav_menu_title">UI Test Pages</string>
+    <string name="about_menu_title">About</string>
+
+    <string name="bottom_nav_frag_colormatrix">ColorMatrix</string>
+    <string name="bottom_nav_frag_divider">page2</string>
+    <string name="bottom_nav_expand">page3</string>
+
+    <string name="about_text">Demonstrate ColorMatrix.\n\nSource code on github at https://landenlabs.com/android\n\nCopyright Dennis Lang 2019</string>
+    <string name="side_nav_header_1">All-ColorMatrix</string>
+
+
+    <string name="matrix_menu_r">Red</string>
+    <string name="matrix_menu_g">Green</string>
+    <string name="matrix_menu_b">Blue</string>
+
+    <string name="matrix_menu_gray">Gray</string>
+    <string name="matrix_menu_invert">Invert</string>
+    <string name="matrix_menu_normal">Normal</string>
+
+    <string name="matrix_menu_0">Zero</string>
+    <string name="matrix_menu_1">One</string>
+
+</resources>
