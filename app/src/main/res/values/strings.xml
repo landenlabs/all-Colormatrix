@@ -7,7 +7,7 @@
     <string name="bottom_nav_frag_divider">page2</string>
     <string name="bottom_nav_expand">page3</string>
 
-    <string name="about_text">Demonstrate ColorMatrix.\n\nSource code on github at https://landenlabs.com/android\n\nCopyright Dennis Lang 2019</string>
+    <string name="about_text">Demonstrate ColorMatrix.\n\nClick on Matrix cells to select, use slider to adjust values. Use Pulldown menus to change background and foreground images. Use right option menu (3 dots) to select predefined matrix samples.\n\nSource code on github at https://landenlabs.com/android\n\nCopyright Dennis Lang 2019</string>
     <string name="side_nav_header_1">All-ColorMatrix</string>
 
 

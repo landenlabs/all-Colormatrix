@@ -1,4 +1,4 @@
 
-zip all-uitest-src.zip *
-zip -r all-uitest-src.zip gradle app
+zip all-colormagtrix-src.zip *
+zip -r all-colormagtrix-src.zip gradle app
  

@@ -39,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.MenuCompat;
@@ -64,6 +63,13 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     private ImageView imageView;
     private Spinner imageMenu;
     private Spinner bgMenu;
+    Set<Integer> gridCellSelected = new HashSet<>();
+    private ColorStateList colorGreen = new ColorStateList(
+            new int[][]{ new int[]{}},
+            new int[]{  0xc0008000 }    // GREEN
+    );
+
+
 
     // Matrix single array, as follows: [ a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t ]
     // When applied to a color [r, g, b, a], the resulting color is computed as (after clamping) ;
@@ -72,10 +78,11 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     //   B' = k*R + l*G + m*B + n*A + o;
     //   A' = p*R + q*G + r*B + s*A + t;
     float[] matrix = {
-            0, 0, 0, 0, 0,          // red
-            0, 0, 0, 0, 0,          // green
-            .1f, .3f, .6f, 0, 0,    // blue
-            1, 1, 1, 1, 1           // alpha
+            1, 0, 0, 0, 0,          // red
+            0, 1, 0, 0, 0,          // green
+            0, 0, 1, 0, 0,          // blue
+            .5f, .5f, .5f, 0, 0,    // alpha
+
     };
 
     float[] matrixNormal = {
@@ -86,9 +93,9 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     };
 
     float[] matrixInvert = {
-            -1, 0, 0, 0, 0,          // red
-            0, -1, 0, 0, 0,          // green
-            0, 0, -1, 0, 0,          // blue
+            -1, 0, 0, 0, 255,          // red
+            0, -1, 0, 0, 255,          // green
+            0, 0, -1, 0, 255,          // blue
             1, 1, 1, 1, 0            // alpha
     };
 
@@ -132,19 +139,24 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     private ColorMatrixColorFilter colorMatrixColorFilter  = new ColorMatrixColorFilter(matrix);
 
     Data[] imageList = new Data[] {
-            new Data("hello1", R.drawable.wx_sun_30d),
-            new Data("hello2", R.drawable.wx_sun_31d),
-            new Data("hello3", R.drawable.wx_sun_32d),
-            new Data("hello4", R.drawable.wx_sun_34d),
-            new Data("hello5", R.drawable.wx_thunder),
+            new Data("sphere 3 ", R.drawable.bg_sphere3),
+            new Data("cloud", R.drawable.wx_sun_30d),
+            new Data("sun", R.drawable.wx_sun_31d),
+            new Data("sphere red", R.drawable.bg_sphere_red),
+            new Data("sphere green", R.drawable.bg_sphere_green),
+            new Data("raindrop", R.drawable.wx_thunder),
+            new Data("black & white", R.drawable.squares100),
     };
 
     Data[] bgList = new Data[] {
-            new Data("black", R.drawable.bg_black),
-            new Data("white", R.drawable.bg_white),
+            new Data("black & white", R.drawable.squares100),
+            new Data("black", R.drawable.bg_all_black),
+            new Data("white", R.drawable.bg_all_white),
+            new Data("gray", R.drawable.bg_all_gray),
             new Data("sphere red", R.drawable.bg_sphere_red),
             new Data("sphere green", R.drawable.bg_sphere_green),
-            new Data("colors", R.drawable.bg_colors),
+            new Data("sphere 3 ", R.drawable.bg_sphere3),
+            new Data("colors", R.drawable.bg_colors)
     };
 
     @Override
@@ -155,6 +167,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
 
         gridview = root.findViewById(R.id.matrix_gridview);
         gridview.setAdapter(new ColorMatrixAdapter(getActivitySafe()));
+        gridview.requestLayout();
 
         imageView = root.findViewById(R.id.matrix_image);
         imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
@@ -163,7 +176,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                setValue(progress / 100.0f);
+                setValue(progress / 100.0f - 1);
             }
 
             @Override
@@ -203,27 +216,41 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.matrix_menu_r:
+                gridCellSelected.clear();
                 System.arraycopy(matrixRed, 0, matrix, 0, matrix.length);
                 break;
             case R.id.matrix_menu_g:
+                gridCellSelected.clear();
                 System.arraycopy(matrixGreen, 0, matrix, 0, matrix.length);
                 break;
             case R.id.matrix_menu_b:
+                gridCellSelected.clear();
                 System.arraycopy(matrixBlue, 0, matrix, 0, matrix.length);
                 break;
             case R.id.matrix_menu_gray:
+                gridCellSelected.clear();
                 System.arraycopy(matrixGray, 0, matrix, 0, matrix.length);
                 break;
             case R.id.matrix_menu_invert:
+                gridCellSelected.clear();
                 System.arraycopy(matrixInvert, 0, matrix, 0, matrix.length);
                 break;
             case R.id.matrix_menu_0:
-                Arrays.fill(matrix, 0f);
+                if (!gridCellSelected.isEmpty()) {
+                     setValue(0f);
+                } else {
+                    Arrays.fill(matrix, 0f);
+                }
                 break;
             case R.id.matrix_menu_1:
-                Arrays.fill(matrix, 1f);
+                if (!gridCellSelected.isEmpty()) {
+                    setValue(1f);
+                } else {
+                    Arrays.fill(matrix, 1f);
+                }
                 break;
             case R.id.matrix_menu_normal:
+                gridCellSelected.clear();
                 System.arraycopy(matrixNormal, 0, matrix, 0, matrix.length);
                 break;
         }
@@ -241,25 +268,19 @@ public class FragColorMatrixDemo extends FragBottomNavBase
         // super.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    private ColorStateList colorGreen = new ColorStateList(
-            new int[][]{ new int[]{}},
-            new int[]{  0xc0008000 }    // GREEN
-    );
-
-    Set<Integer> gridCellSelected = new HashSet<>();
-
     private void setValue(float fValue) {
         for (Integer pos : gridCellSelected) {
             TextView view = (TextView)gridview.getChildAt(pos);
-            view.setText(floatStr(fValue));
-            matrix[pos] = fValue;
-            imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
+            boolean lastCol = (pos%5)==4;
+            float value = lastCol ? Math.max(0, fValue)*255 : fValue;
+            view.setText(lastCol ? String.valueOf(Math.round(value)) : floatStr(value));
+            matrix[pos] = value;
         }
+        imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
     }
 
     private static String floatStr(float fvalue) {
         String str = String.format(Locale.US, "%1.2f", fvalue);
-        // Log.d("ColorMatrix", str);
         return str;
     }
 
@@ -279,14 +300,14 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     private final static int rightCellPadPx = 10;
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         Data data;
         if (parent == imageMenu) {
-            data = imageList[position];
+            data = imageList[pos];
             imageView.setImageResource(data.imageRes);
         }
         if (parent == bgMenu) {
-            data = bgList[position];
+            data = bgList[pos];
             imageView.setBackground( imageView.getResources().getDrawable(data.imageRes, imageView.getContext().getTheme()));
         }
     }
@@ -317,12 +338,12 @@ public class FragColorMatrixDemo extends FragBottomNavBase
             return 0;
         }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int pos, View convertView, ViewGroup parent) {
             View view;
             GridView.LayoutParams lp = new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, rowHeightPx);
             int topCellPadPx = 0;
 
-            view = makeText(matrix[position], position);
+            view = makeText(matrix[pos], pos);
             view.setLayoutParams(lp);
             view.setPadding(leftCellPadPx, topCellPadPx, rightCellPadPx, 0);
             view.setOnClickListener(new View.OnClickListener() {
@@ -332,12 +353,14 @@ public class FragColorMatrixDemo extends FragBottomNavBase
                         view.setBackgroundResource(R.drawable.bg_anim_gradient);
                         view.setBackgroundTintList(colorGreen);
                         ((AnimatedVectorDrawable) view.getBackground()).start();
-                        float fvalue = matrix[position];
-                        slider.setProgress((Math.round(fvalue*100)));
-                        gridCellSelected.add(position);
+                        float fvalue = matrix[pos];
+                        boolean lastCol = (pos % 5) == 4;
+                        fvalue = lastCol ? fvalue/255 : fvalue;
+                        slider.setProgress((Math.round((fvalue+1)*100)));
+                        gridCellSelected.add(pos);
                     } else {
                         view.setBackground(null);
-                        gridCellSelected.remove(position);
+                        gridCellSelected.remove(pos);
                     }
                 }
             });
@@ -348,10 +371,11 @@ public class FragColorMatrixDemo extends FragBottomNavBase
         @SuppressWarnings("unused")
         private TextView makeText(float fvalue, final int pos) {
             TextView textView = new TextView(mContext);
-            textView.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+            textView.setGravity(Gravity.CENTER);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-            textView.setText(floatStr(fvalue));
-         //    textView.setTypeface(null, Typeface.BOLD);
+            // textView.setText(floatStr(fvalue));
+            boolean lastCol = (pos % 5) == 4;
+            textView.setText(lastCol ? String.valueOf(Math.round(fvalue)) : floatStr(fvalue));
             textView.setTextColor(Color.WHITE);
             return textView;
         }
