@@ -55,15 +55,16 @@ import com.landenlabs.all_colormatrix.SpinnerImageTextAdapter.Data;
 /**
  * Sample fragment demonstrate ColorMatrix.
  */
+@SuppressWarnings("UnnecessaryLocalVariable")
 public class FragColorMatrixDemo extends FragBottomNavBase
-        implements View.OnTouchListener, AdapterView.OnItemSelectedListener {
+        implements AdapterView.OnItemSelectedListener {
 
     private GridView gridview;
     private SeekBarExt1 slider;
     private ImageView imageView;
     private Spinner imageMenu;
     private Spinner bgMenu;
-    Set<Integer> gridCellSelected = new HashSet<>();
+    private Set<Integer> gridCellSelected = new HashSet<>();
     private ColorStateList colorGreen = new ColorStateList(
             new int[][]{ new int[]{}},
             new int[]{  0xc0008000 }    // GREEN
@@ -77,7 +78,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     //   G' = f*R + g*G + h*B + i*A + j;
     //   B' = k*R + l*G + m*B + n*A + o;
     //   A' = p*R + q*G + r*B + s*A + t;
-    float[] matrix = {
+    private float[] matrix = {
             1, 0, 0, 0, 0,          // red
             0, 1, 0, 0, 0,          // green
             0, 0, 1, 0, 0,          // blue
@@ -85,28 +86,28 @@ public class FragColorMatrixDemo extends FragBottomNavBase
 
     };
 
-    float[] matrixNormal = {
+    private float[] matrixNormal = {
             1, 0, 0, 0, 0,          // red
             0, 1, 0, 0, 0,          // green
             0, 0, 1, 0, 0,          // blue
             0, 0, 0, 1, 0           // alpha
     };
 
-    float[] matrixInvert = {
+    private float[] matrixInvert = {
             -1, 0, 0, 0, 255,          // red
             0, -1, 0, 0, 255,          // green
             0, 0, -1, 0, 255,          // blue
             1, 1, 1, 1, 0            // alpha
     };
 
-    float[] matrixRed = {
+    private float[] matrixRed = {
             1, 1, 1, 0, 0,          // red
             0, 0, 0, 0, 0,          // green
             0, 0, 0, 0, 0,          // blue
             0, 0, 0, 1, 0           // alpha
     };
 
-    float[] matrixGreen = {
+    private float[] matrixGreen = {
             0, 0, 0, 0, 0,          // red
             1, 1, 1, 0, 0,          // green
             0, 0, 0, 0, 0,          // blue
@@ -114,14 +115,14 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     };
 
 
-    float[] matrixBlue = {
+    private float[] matrixBlue = {
             0, 0, 0, 0, 0,          // red
             0, 0, 0, 0, 0,          // green
             1, 1, 1, 0, 0,          // blue
             0, 0, 0, 1, 0           // alpha
     };
 
-    float[] matrixGray = {
+    private float[] matrixGray = {
             0.33f, 0.33f, 0.33f, 0, 0,          // red
             0.33f, 0.33f, 0.33f, 0, 0,          // green
             0.33f, 0.33f, 0.33f, 0, 0,          // blue
@@ -136,9 +137,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
         ColorMatrix5=-1;-1;-1;0;1
      */
 
-    private ColorMatrixColorFilter colorMatrixColorFilter  = new ColorMatrixColorFilter(matrix);
-
-    Data[] imageList = new Data[] {
+    private Data[] imageList = new Data[] {
             new Data("sphere 3 ", R.drawable.bg_sphere3),
             new Data("cloud", R.drawable.wx_sun_30d),
             new Data("sun", R.drawable.wx_sun_31d),
@@ -148,7 +147,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
             new Data("black & white", R.drawable.squares100),
     };
 
-    Data[] bgList = new Data[] {
+    private Data[] bgList = new Data[] {
             new Data("black & white", R.drawable.squares100),
             new Data("black", R.drawable.bg_all_black),
             new Data("white", R.drawable.bg_all_white),
@@ -282,14 +281,6 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     private static String floatStr(float fvalue) {
         String str = String.format(Locale.US, "%1.2f", fvalue);
         return str;
-    }
-
-    @Override
-    public boolean onTouch(View view, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-        }
-        return false;
     }
 
 

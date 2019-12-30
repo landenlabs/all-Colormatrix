@@ -33,10 +33,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Objects;
 
+/**
+ * Abstract base fragment used with Bottom navigation layout.
+ */
 @SuppressWarnings("WeakerAccess")
 abstract class FragBottomNavBase extends Fragment {
-
-    static final String TAG = "FragBottomNavBase";
 
     @IntDef({View.VISIBLE, View.INVISIBLE, View.GONE})
     @Retention(RetentionPolicy.SOURCE)

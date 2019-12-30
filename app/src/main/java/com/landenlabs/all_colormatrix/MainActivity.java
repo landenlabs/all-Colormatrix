@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         navSideController = Navigation.findNavController(this, R.id.sideNavFragment);
 
-
         // Set up ActionBar
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         toolbar = findViewById(R.id.toolbar);
@@ -84,12 +83,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         intentAction = getIntent() != null ? getIntent().getAction() : null;
         Log.d(TAG, String.format(Locale.US, "indent action=%s", intentAction));
-        if (action1.equals(intentAction)) {
-            // TODO - Implement shortcut intent launching.
-        }
     }
 
     @Override

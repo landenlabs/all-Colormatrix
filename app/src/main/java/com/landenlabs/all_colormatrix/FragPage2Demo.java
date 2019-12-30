@@ -27,6 +27,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.view.MenuCompat;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * A simple [Fragment] page.
  */
@@ -41,7 +43,7 @@ public class FragPage2Demo extends FragBottomNavBase {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NotNull MenuInflater inflater) {
         menu.clear();
     }
 

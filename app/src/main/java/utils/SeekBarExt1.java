@@ -38,10 +38,10 @@ import com.landenlabs.all_colormatrix.R;
 
 
 /**
- * @author Dennis Lang (LanDen Labs)
+ * Custom SeekBar
  * @see <a href="http://landenlabs.com/android"> author's web-site </a>
  */
-
+@SuppressWarnings("unused")
 public class SeekBarExt1 extends androidx.appcompat.widget.AppCompatSeekBar {
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
