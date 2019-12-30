@@ -1,30 +1,34 @@
 # LanDen Labs - ColorMatrix
 Android ColorMatrix
 <br>[Home website](http://landenlabs.com/android/index.html)
+<br>Dec-2019
 
-**Demonstrate Android ColorMatrix and ColorMatrixColorFilter **
+
+**Demonstrate Android ColorMatrix and ColorMatrixColorFilter**
 
 
-[Wiki link](http://landenlabs.com/android/all-colormatrix/index.html) for detailed information.
+[webpage](http://landenlabs.com/android/all-colormatrix/index.html) for detailed information.
+
+[See use of colorMatrix in all-uitest app](http://github.com/landenlabs/all-uitest) 
 
 ---
 <a name="page1"></a>
 **Intro Screen** 
 
-![picture](http://landenlabs.com/android/all-colormatrix/intro.jpg)
+<img src="http://landenlabs.com/android/all-colormatrix/intro.jpg" width="400">
 
 [To Top](#table)
 
 
 **Example using app** 
 
-![picture](http://landenlabs.com/android/all-colormatrix/spheres.gif)
+<img src="http://landenlabs.com/android/all-colormatrix/spheres.gif" width="400">
 
 [To Top](#table)
 
 **Red Filters** 
 
-<img src="http://landenlabs.com/android/all-colormatrix/red.jpg">
+<img src="http://landenlabs.com/android/all-colormatrix/red.jpg" width="400">
 
 [To Top](#table)
 
@@ -32,7 +36,7 @@ Android ColorMatrix
  
 **Gray Filters** 
 
-<img src="http://landenlabs.com/android/all-colormatrix/gray.jpg">
+<img src="http://landenlabs.com/android/all-colormatrix/gray.jpg" width="400">
 
 [To Top](#table)
 
@@ -40,16 +44,14 @@ Android ColorMatrix
  
 **Invert Filters** 
 
-<img src="http://landenlabs.com/android/all-colormatrix/invert.jpg">
+<img src="http://landenlabs.com/android/all-colormatrix/invert.jpg" width="400">
 
 [To Top](#table)
 
 ---
-***
 
-[Wiki link](http://landenlabs.com/android/index.html) for more information.
+[Home webpage](http://landenlabs.com/android/index.html) for more information.
 
----
 
 # License
 
@@ -68,7 +70,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
 
 [To Top](#table)
 <br>[Home website](http://landenlabs.com/android/index.html)
