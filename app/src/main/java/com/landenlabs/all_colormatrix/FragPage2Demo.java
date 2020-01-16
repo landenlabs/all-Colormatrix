@@ -29,6 +29,7 @@ import androidx.core.view.MenuCompat;
 
 import org.jetbrains.annotations.NotNull;
 
+
 /**
  * A simple [Fragment] page.
  */
