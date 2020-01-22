@@ -4,13 +4,12 @@ Android ColorMatrix
 <br>15-Jan-2020
 <br>API 29 AndroidX Java 
 
-
 **Demonstrate Android ColorMatrix and ColorMatrixColorFilter**
 
+[![Build status](https://travis-ci.org/landenlabs/all-colormatrix.svg?branch=master)](https://travis-ci.org/landenlabs/all-colormatrix)
+[![Known Vulnerabilities](https://snyk.io/test/github/landenlabs/all-colormatrix/badge.svg)](https://snyk.io/test/github/landenlabs/all-colormatrix)
+  
 
-  [![Build status](https://travis-ci.org/landenlabs/all-colormatrix.svg?branch=master)](https://travis-ci.org/landenlabs/all-colormatrix)
-  
-  
 [webpage](http://landenlabs.com/android/all-colormatrix/index.html) for detailed information.
 
 [See use of colorMatrix in all-uitest app](http://github.com/landenlabs/all-uitest) 
