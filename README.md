@@ -1,3 +1,4 @@
+
 # LanDen Labs - ColorMatrix
 Android ColorMatrix
 <br>[Home website](http://landenlabs.com/android/index.html)
@@ -10,11 +11,15 @@ Android ColorMatrix
 [![Known Vulnerabilities](https://snyk.io/test/github/landenlabs/all-colormatrix/badge.svg)](https://snyk.io/test/github/landenlabs/all-colormatrix)
   
 
-[webpage](http://landenlabs.com/android/all-colormatrix/index.html) for detailed information.
+## Web Links
+* [webpage](http://landenlabs.com/android/all-colormatrix/index.html) for detailed information.
+* [See use of colorMatrix in all-uitest app](http://github.com/landenlabs/all-uitest) 
+* [C# color matrix program](http://landenlabs.com/cs-colormatrix/colormatrix.html)
+* [C# program posted to Code Project](https://www.codeproject.com/Articles/75006/Color-Matrix-Image-Drawing-Effects)
+* [Home webpage](http://landenlabs.com/android/index.html) for more information.
 
-[See use of colorMatrix in all-uitest app](http://github.com/landenlabs/all-uitest) 
 
----
+## Intro
 <a name="page1"></a>
 **Intro Screen** 
 
@@ -23,7 +28,7 @@ Android ColorMatrix
 [To Top](#table)
 
 
-**Example using app** 
+## Example using app
 
 <img src="http://landenlabs.com/android/all-colormatrix/spheres.gif" width="400">
 
@@ -35,31 +40,23 @@ Android ColorMatrix
 
 [To Top](#table)
 
----
- 
-**Gray Filters** 
+## Gray Filter
 
 <img src="http://landenlabs.com/android/all-colormatrix/gray.jpg" width="400">
 
 [To Top](#table)
 
----
- 
-**Invert Filters** 
+## Invert Filters
 
 <img src="http://landenlabs.com/android/all-colormatrix/invert.jpg" width="400">
 
 [To Top](#table)
 
----
 
-[Home webpage](http://landenlabs.com/android/index.html) for more information.
-
-
-# License
+## License
 
 ```
-Copyright 2019 Dennis Lang
+Copyright 2020 Dennis Lang
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
