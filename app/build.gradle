@@ -17,11 +17,6 @@ android {
 
         // Limit languages to following list.
         resConfigs "en", "es"
-
-        ndk {
-            // abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-            abiFilters 'armeabi-v7a', 'arm64-v8a'
-        }
     }
 
     // Save app version in string so resource can be used in layouts
@@ -33,6 +28,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            ndk {
+                // abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
         }
     }
 
@@ -56,13 +56,14 @@ dependencies {
     // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     // implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.kotlinNavigationVersion"
     // implementation "android.arch.navigation:navigation-ui-ktx:$rootProject.kotlinNavigationVersion"
 
-    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc04'
-    implementation 'androidx.navigation:navigation-ui:2.2.0-rc04'
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+
     implementation 'org.jetbrains:annotations:17.0.0'
 
     /*
@@ -70,4 +71,13 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
      */
+}
+
+// Rename app
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        def ourname = project.parent.name
+        outputFileName = "$ourname-${variant.name}-${variant.versionName}.apk"
+        println "out name= $outputFileName"
+    }
 }
