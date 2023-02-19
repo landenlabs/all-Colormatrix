@@ -39,6 +39,8 @@ import java.util.Objects;
 @SuppressWarnings("WeakerAccess")
 abstract class FragBottomNavBase extends Fragment {
 
+    static final String TAG = "FragBottomNavBase";
+
     @IntDef({View.VISIBLE, View.INVISIBLE, View.GONE})
     @Retention(RetentionPolicy.SOURCE)
     @interface Visibility {}

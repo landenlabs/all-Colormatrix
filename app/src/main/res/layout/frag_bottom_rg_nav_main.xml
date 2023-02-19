@@ -19,6 +19,7 @@
   ~ @author Dennis Lang
   ~ @see http://LanDenLabs.com/
   -->
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -37,18 +38,37 @@
        app:defaultNavHost="true"
        app:navGraph="@navigation/nav_bottom"/>
 
-
-    <!-- only supports 5 tab items -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <!-- Alternate bottom nav -->
+    <HorizontalScrollView
         android:layout_alignParentBottom="true"
         android:id="@+id/bottomNavigation"
+        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
-        app:labelVisibilityMode="labeled"
-        app:itemIconTint="@color/text_light"
-        app:itemTextColor="@color/text_light"
-        app:menu="@menu/menu_bottom" />
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:id="@+id/tabHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/text_light"
+            android:divider="?android:attr/dividerHorizontal"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:showDividers="middle" >
+
+
+            <RadioButton
+                android:layout_weight="1"
+                android:text="test1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <RadioButton
+                android:text="test2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </RadioGroup>
+    </HorizontalScrollView>
 
 </RelativeLayout>

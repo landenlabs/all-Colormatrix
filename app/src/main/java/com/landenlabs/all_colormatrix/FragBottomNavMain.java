@@ -16,13 +16,22 @@ package com.landenlabs.all_colormatrix;
  * limitations under the License.
  */
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
@@ -33,21 +42,78 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 /**
  * Fragment which setups a page with bottom and side navigation.
  */
-public class FragBottomNavMain extends FragBottomNavBase  {
+public class FragBottomNavMain extends FragBottomNavBase
+         implements  View.OnClickListener  {
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-    ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.frag_bottom_nav_main, container, false);
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.sideNavFragment);
-        // NavGraph bottomNavGraph = navController.getNavInflater().inflate(R.navigation.nav_bottom);
+    private ViewGroup root;
+    private final boolean useRadioBottomBar = true;
+    private final int LAYOUT_RES = useRadioBottomBar ? R.layout.frag_bottom_rg_nav_main : R.layout.frag_bottom_nav_main;
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        root = (ViewGroup)inflater.inflate(LAYOUT_RES, container, false);
+        // NavController navSideController = Navigation.findNavController(requireActivity(), R.id.sideNavFragment);
         return root;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.bottomNavFragment);
-        BottomNavigationView bottomNavigation = view.findViewById(R.id.bottomNavigation);
-        NavigationUI.setupWithNavController(bottomNavigation, navController);
+        if (useRadioBottomBar) {
+            // Setup custom bottom navigation
+            RadioGroup navBar = root.findViewById(R.id.tabHolder);
+            PopupMenu popupMenu = new PopupMenu(requireActivity(), root);
+            requireActivity().getMenuInflater().inflate(R.menu.menu_bottom, popupMenu.getMenu());
+            addTabBar(navBar, popupMenu.getMenu());
+        } else {
+            // Setup bottom navigation
+            // NavGraph bottomNavGraph = navController.getNavInflater().inflate(R.navigation.nav_bottom);
+            NavController bottomNavController = Navigation.findNavController(requireActivity(), R.id.bottomNavFragment);
+            BottomNavigationView bottomNavView = view.findViewById(R.id.bottomNavigation);
+            NavigationUI.setupWithNavController(bottomNavView, bottomNavController);
+        }
     }
 
+    @Override
+    public void onClick(View view) {
+        changePage(view.getId());
+    }
+
+    private void changePage(int id) {
+        NavController navBotController = Navigation.findNavController(requireActivity(), R.id.bottomNavFragment);
+        navBotController.navigate(id);
+    }
+
+    private ColorStateList colorGrey = new ColorStateList(
+            new int[][]{ new int[]{}},
+            new int[]{Color.GRAY }
+    );
+
+    // ---------------------------------------------------------------------------------------------
+    // Alternate bottom nav bar
+
+    private void addTabBar(@NonNull RadioGroup tabHolder, @NonNull Menu menu) {
+        tabHolder.removeAllViews();
+        RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        lp.weight = 1;
+
+        for (int idx = 0; idx < menu.size(); idx++) {
+            RadioButton button = (RadioButton) getLayoutInflater().inflate(R.layout.tab_btn, root, false);
+            MenuItem item = menu.getItem(idx);
+            Drawable tabBtnIcon = null;
+            try {
+                tabBtnIcon = item.getIcon();
+            } catch (Exception ex) {
+                Log.e(TAG, String.format("Failed to load icon for tab# %d, exception=%s",
+                        idx, ex.getMessage()));
+            }
+            if (tabBtnIcon != null) {
+                button.setId(item.getItemId());
+                button.setText(item.getTitle());
+                button.setCompoundDrawableTintList(colorGrey);
+                button.setCompoundDrawablesWithIntrinsicBounds(null, tabBtnIcon, null, null);
+                button.setOnClickListener(this);
+                tabHolder.addView(button, lp);
+            }
+        }
+    }
 }

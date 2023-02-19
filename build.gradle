@@ -4,21 +4,19 @@ buildscript {
 
     ext {
         // Sdk and tools
-        compileSdkVersion = 29
+        compileSdkVersion = 33
         minSdkVersion = 23
-        targetSdkVersion = 29
+        targetSdkVersion = 33
     }
 
     repositories {
         google()
-        jcenter()
-        // mavenCentral()   // Kotlin
+        mavenCentral()
     }
     dependencies {
         // https://developer.android.com/studio/releases/gradle-plugin
         // https://gradle.org/releases/
-        //
-        classpath 'com.android.tools.build:gradle:4.0.1' // Android X
+        classpath 'com.android.tools.build:gradle:7.3.1' // AndroidStudio eel
 
         // Kotlin
         // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
@@ -28,8 +26,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
-        // mavenCentral()   // Kotlin
+        mavenCentral()
     }
 }
 

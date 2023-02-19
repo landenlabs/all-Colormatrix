@@ -24,8 +24,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -44,6 +47,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Main activity for All-ColorMatrix which demonstrates cell expansion and dividers.
+ */
 @SuppressWarnings("Convert2Lambda")
 public class MainActivity extends AppCompatActivity {
 
@@ -67,18 +73,19 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         NavigationUI.setupActionBarWithNavController(this, navSideController, drawerLayout);
 
-        // Set up navigation menu
-        NavigationView navigationView = findViewById(R.id.navigationView);
-        NavigationMenuView navMenuView = (NavigationMenuView) navigationView.getChildAt(0);
+        // Set up side navigation draw menu
+        NavigationView navSideView = findViewById(R.id.navSideView);
+        NavigationMenuView navMenuView = (NavigationMenuView) navSideView.getChildAt(0);
         navMenuView.addItemDecoration(new DividerItemDecoration(MainActivity.this,DividerItemDecoration.VERTICAL));
-        NavigationUI.setupWithNavController(navigationView, navSideController);
+        NavigationUI.setupWithNavController(navSideView, navSideController);
 
-        navigationView.post(new Runnable() {
+        // Setup shortcuts for Bottom Nav items.
+        navSideView.post(new Runnable() {
             @Override
             public void run() {
-                BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+                ViewGroup bottomNavigationView = findViewById(R.id.bottomNavigation);
                 if (bottomNavigationView != null) {
-                    addShortcut(bottomNavigationView);
+                    addOrExecuteShortcut(bottomNavigationView);
                 }
             }
         });
@@ -89,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate  menu, adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_side, menu);
         return true;
     }
@@ -101,15 +108,32 @@ public class MainActivity extends AppCompatActivity {
                 Navigation.findNavController(this, R.id.sideNavFragment), drawerLayout);
     }
 
-    private static final String action1= "action1";
-    private void addShortcut( BottomNavigationView bottomNavigationView) {
-        if (android.os.Build.VERSION.SDK_INT <android.os.Build.VERSION_CODES.N_MR1)
-            return;
+    /**
+     * Add or execute short cut
+     */
 
-        int menuSize = bottomNavigationView.getMenu().size();
-        Map<String, MenuItem> menus = new HashMap<>(menuSize);
+    @SuppressWarnings("ConstantConditions")
+    private void addOrExecuteShortcut(@NonNull ViewGroup bottomNavGroup) {
+        if (android.os.Build.VERSION.SDK_INT <android.os.Build.VERSION_CODES.N_MR1) {
+            return;
+        }
+
+        Map<String, MenuItem> menus;
+        Menu menu;
+
+        if (bottomNavGroup instanceof BottomNavigationView) {
+            BottomNavigationView bottomNavigationView = (BottomNavigationView)bottomNavGroup;
+            menu = bottomNavigationView.getMenu();
+        } else {
+            PopupMenu popupMenu = new PopupMenu(this, bottomNavGroup.getRootView());
+            getMenuInflater().inflate(R.menu.menu_bottom, popupMenu.getMenu());
+            menu = popupMenu.getMenu();
+        }
+
+        int menuSize = menu.size();
+        menus = new HashMap<>(menuSize);
         for (int menuIdx = 0; menuIdx < menuSize; menuIdx++) {
-            MenuItem menuItem = bottomNavigationView.getMenu().getItem(menuIdx);
+            MenuItem menuItem = menu.getItem(menuIdx);
             menus.put(menuItem.getTitle().toString(), menuItem);
         }
 
@@ -135,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 shortcutList.add(postShortcut);
 
                 if (navDestination.getLabel().equals(intentAction)) {
+                    // Execute shortcut
                     navBotController.navigate(navDestination.getId());
                 }
             }
