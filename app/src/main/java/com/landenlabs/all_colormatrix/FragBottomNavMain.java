@@ -32,8 +32,8 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.widget.TextViewCompat;
 import androidx.navigation.NavController;
-import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -41,6 +41,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * Fragment which setups a page with bottom and side navigation.
+ * @noinspection ALL
  */
 public class FragBottomNavMain extends FragBottomNavBase
          implements  View.OnClickListener  {
@@ -83,7 +84,7 @@ public class FragBottomNavMain extends FragBottomNavBase
         navBotController.navigate(id);
     }
 
-    private ColorStateList colorGrey = new ColorStateList(
+    private final ColorStateList colorGrey = new ColorStateList(
             new int[][]{ new int[]{}},
             new int[]{Color.GRAY }
     );
@@ -109,7 +110,8 @@ public class FragBottomNavMain extends FragBottomNavBase
             if (tabBtnIcon != null) {
                 button.setId(item.getItemId());
                 button.setText(item.getTitle());
-                button.setCompoundDrawableTintList(colorGrey);
+                // button.setCompoundDrawableTintList(colorGrey);
+                TextViewCompat.setCompoundDrawableTintList(button, colorGrey);
                 button.setCompoundDrawablesWithIntrinsicBounds(null, tabBtnIcon, null, null);
                 button.setOnClickListener(this);
                 tabHolder.addView(button, lp);

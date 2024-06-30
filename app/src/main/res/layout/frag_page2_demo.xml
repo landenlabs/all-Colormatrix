@@ -23,10 +23,6 @@
                 android:text="page2"
                 android:textColor="@color/text_on_bg"
                 android:textSize="20sp" />
-
-
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>

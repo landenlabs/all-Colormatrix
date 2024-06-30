@@ -29,7 +29,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,7 +40,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.MenuCompat;
+import androidx.core.view.MenuProvider;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -57,15 +58,15 @@ import com.landenlabs.all_colormatrix.SpinnerImageTextAdapter.Data;
  */
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class FragColorMatrixDemo extends FragBottomNavBase
-        implements AdapterView.OnItemSelectedListener {
+        implements AdapterView.OnItemSelectedListener, MenuProvider {
 
     private GridView gridview;
     private SeekBarExt1 slider;
     private ImageView imageView;
     private Spinner imageMenu;
     private Spinner bgMenu;
-    private Set<Integer> gridCellSelected = new HashSet<>();
-    private ColorStateList colorGreen = new ColorStateList(
+    private final Set<Integer> gridCellSelected = new HashSet<>();
+    private final ColorStateList colorGreen = new ColorStateList(
             new int[][]{ new int[]{}},
             new int[]{  0xc0008000 }    // GREEN
     );
@@ -78,7 +79,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     //   G' = f*R + g*G + h*B + i*A + j;
     //   B' = k*R + l*G + m*B + n*A + o;
     //   A' = p*R + q*G + r*B + s*A + t;
-    private float[] matrix = {
+    private final float[] matrix = {
             1, 0, 0, 0, 0,          // red
             0, 1, 0, 0, 0,          // green
             0, 0, 1, 0, 0,          // blue
@@ -86,28 +87,28 @@ public class FragColorMatrixDemo extends FragBottomNavBase
 
     };
 
-    private float[] matrixNormal = {
+    private final float[] matrixNormal = {
             1, 0, 0, 0, 0,          // red
             0, 1, 0, 0, 0,          // green
             0, 0, 1, 0, 0,          // blue
             0, 0, 0, 1, 0           // alpha
     };
 
-    private float[] matrixInvert = {
+    private final float[] matrixInvert = {
             -1, 0, 0, 0, 255,          // red
             0, -1, 0, 0, 255,          // green
             0, 0, -1, 0, 255,          // blue
             1, 1, 1, 1, 0            // alpha
     };
 
-    private float[] matrixRed = {
+    private final float[] matrixRed = {
             1, 1, 1, 0, 0,          // red
             0, 0, 0, 0, 0,          // green
             0, 0, 0, 0, 0,          // blue
             0, 0, 0, 1, 0           // alpha
     };
 
-    private float[] matrixGreen = {
+    private final float[] matrixGreen = {
             0, 0, 0, 0, 0,          // red
             1, 1, 1, 0, 0,          // green
             0, 0, 0, 0, 0,          // blue
@@ -115,14 +116,14 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     };
 
 
-    private float[] matrixBlue = {
+    private final float[] matrixBlue = {
             0, 0, 0, 0, 0,          // red
             0, 0, 0, 0, 0,          // green
             1, 1, 1, 0, 0,          // blue
             0, 0, 0, 1, 0           // alpha
     };
 
-    private float[] matrixGray = {
+    private final float[] matrixGray = {
             0.33f, 0.33f, 0.33f, 0, 0,          // red
             0.33f, 0.33f, 0.33f, 0, 0,          // green
             0.33f, 0.33f, 0.33f, 0, 0,          // blue
@@ -137,7 +138,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
         ColorMatrix5=-1;-1;-1;0;1
      */
 
-    private Data[] imageList = new Data[] {
+    private final Data[] imageList = new Data[] {
             new Data("sphere 3 ", R.drawable.bg_sphere3),
             new Data("cloud", R.drawable.wx_sun_30d),
             new Data("sun", R.drawable.wx_sun_31d),
@@ -147,7 +148,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
             new Data("black & white", R.drawable.squares100),
     };
 
-    private Data[] bgList = new Data[] {
+    private final Data[] bgList = new Data[] {
             new Data("black & white", R.drawable.squares100),
             new Data("black", R.drawable.bg_all_black),
             new Data("white", R.drawable.bg_all_white),
@@ -161,11 +162,11 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, R.layout.frag_colormatrix_demo);
-        this.setHasOptionsMenu(true);
+        requireActivity().addMenuProvider(this); // this.setHasOptionsMenu(true);
         setBarTitle("ColorMatrix Demo");
 
         gridview = root.findViewById(R.id.matrix_gridview);
-        gridview.setAdapter(new ColorMatrixAdapter(getActivitySafe()));
+        gridview.setAdapter(new ColorMatrixAdapter(requireActivity()));
         gridview.requestLayout();
 
         imageView = root.findViewById(R.id.matrix_image);
@@ -200,66 +201,60 @@ public class FragColorMatrixDemo extends FragBottomNavBase
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
-        menu.clear();
-        MenuCompat.setGroupDividerEnabled(menu, true);
-        inflater.inflate(R.menu.menu_settings, menu);
-    }
-
-    @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         return super.onContextItemSelected(item);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.matrix_menu_r:
-                gridCellSelected.clear();
-                System.arraycopy(matrixRed, 0, matrix, 0, matrix.length);
-                break;
-            case R.id.matrix_menu_g:
-                gridCellSelected.clear();
-                System.arraycopy(matrixGreen, 0, matrix, 0, matrix.length);
-                break;
-            case R.id.matrix_menu_b:
-                gridCellSelected.clear();
-                System.arraycopy(matrixBlue, 0, matrix, 0, matrix.length);
-                break;
-            case R.id.matrix_menu_gray:
-                gridCellSelected.clear();
-                System.arraycopy(matrixGray, 0, matrix, 0, matrix.length);
-                break;
-            case R.id.matrix_menu_invert:
-                gridCellSelected.clear();
-                System.arraycopy(matrixInvert, 0, matrix, 0, matrix.length);
-                break;
-            case R.id.matrix_menu_0:
-                if (!gridCellSelected.isEmpty()) {
-                     setValue(0f);
-                } else {
-                    Arrays.fill(matrix, 0f);
-                }
-                break;
-            case R.id.matrix_menu_1:
-                if (!gridCellSelected.isEmpty()) {
-                    setValue(1f);
-                } else {
-                    Arrays.fill(matrix, 1f);
-                }
-                break;
-            case R.id.matrix_menu_normal:
-                gridCellSelected.clear();
-                System.arraycopy(matrixNormal, 0, matrix, 0, matrix.length);
-                break;
+    public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+        menu.clear();
+        MenuCompat.setGroupDividerEnabled(menu, true);
+        menuInflater.inflate(R.menu.menu_settings, menu);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+        int itemId = menuItem.getItemId();
+        boolean handledIt = true;
+        if (itemId == R.id.matrix_menu_r) {
+            gridCellSelected.clear();
+            System.arraycopy(matrixRed, 0, matrix, 0, matrix.length);
+        } else if (itemId == R.id.matrix_menu_g) {
+            gridCellSelected.clear();
+            System.arraycopy(matrixGreen, 0, matrix, 0, matrix.length);
+        } else if (itemId == R.id.matrix_menu_b) {
+            gridCellSelected.clear();
+            System.arraycopy(matrixBlue, 0, matrix, 0, matrix.length);
+        } else if (itemId == R.id.matrix_menu_gray) {
+            gridCellSelected.clear();
+            System.arraycopy(matrixGray, 0, matrix, 0, matrix.length);
+        } else if (itemId == R.id.matrix_menu_invert) {
+            gridCellSelected.clear();
+            System.arraycopy(matrixInvert, 0, matrix, 0, matrix.length);
+        } else if (itemId == R.id.matrix_menu_0) {
+            if (!gridCellSelected.isEmpty()) {
+                setValue(0f);
+            } else {
+                Arrays.fill(matrix, 0f);
+            }
+        } else if (itemId == R.id.matrix_menu_1) {
+            if (!gridCellSelected.isEmpty()) {
+                setValue(1f);
+            } else {
+                Arrays.fill(matrix, 1f);
+            }
+        } else if (itemId == R.id.matrix_menu_normal) {
+            gridCellSelected.clear();
+            System.arraycopy(matrixNormal, 0, matrix, 0, matrix.length);
+        } else {
+            handledIt = false;
         }
 
         imageView.setColorFilter(new ColorMatrixColorFilter(matrix));
-        gridview.setAdapter(new ColorMatrixAdapter(getActivitySafe()));
+        gridview.setAdapter(new ColorMatrixAdapter(requireActivity()));
         gridview.requestLayout();
 
-        return false;
-        // return super.onOptionsItemSelected(item);
+        return handledIt;
     }
 
     @Override
@@ -299,7 +294,7 @@ public class FragColorMatrixDemo extends FragBottomNavBase
         }
         if (parent == bgMenu) {
             data = bgList[pos];
-            imageView.setBackground( imageView.getResources().getDrawable(data.imageRes, imageView.getContext().getTheme()));
+            imageView.setBackground(ResourcesCompat.getDrawable(imageView.getResources(), data.imageRes, imageView.getContext().getTheme()));
         }
     }
 

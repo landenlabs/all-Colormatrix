@@ -36,4 +36,24 @@
         android:name="com.landenlabs.all_colormatrix.AboutFragment"
         android:label="About"
         tools:layout="@layout/frag_about" />
+
+    <!-- From nav_bottom.xml -->
+    <fragment
+        android:label="@string/bottom_nav_frag_colormatrix"
+        android:id="@+id/fragGridViewDemo"
+        android:name="com.landenlabs.all_colormatrix.FragColorMatrixDemo"
+        tools:layout="@layout/frag_colormatrix_demo"/>
+
+    <fragment
+        android:label="@string/bottom_nav_frag_divider"
+        android:id="@+id/fragDividerDemo"
+        android:name="com.landenlabs.all_colormatrix.FragPage2Demo"
+        tools:layout="@layout/frag_page2_demo"/>
+
+    <fragment
+        android:label="@string/bottom_nav_expand"
+        android:id="@+id/fragExpandDemo"
+        android:name="com.landenlabs.all_colormatrix.FragPage3Demo"
+        tools:layout="@layout/frag_page3_demo"/>
+
 </navigation>

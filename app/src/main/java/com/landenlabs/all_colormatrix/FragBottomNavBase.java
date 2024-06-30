@@ -16,7 +16,6 @@ package com.landenlabs.all_colormatrix;
  * limitations under the License.
  */
 
-import android.app.Activity;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -31,7 +30,6 @@ import com.google.android.material.appbar.AppBarLayout;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Objects;
 
 /**
  * Abstract base fragment used with Bottom navigation layout.
@@ -75,10 +73,4 @@ abstract class FragBottomNavBase extends Fragment {
             appBar.invalidate();
         }
     }
-
-    @NonNull
-    Activity getActivitySafe() {
-        return Objects.requireNonNull(getActivity());
-    }
-
 }

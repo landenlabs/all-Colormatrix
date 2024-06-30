@@ -28,17 +28,18 @@ import com.landenlabs.all_colormatrix.R;
 
 /**
  * Custom GridView which automatically provides dividers.
+ * @noinspection ConstantValue
  */
 public class GridViewExt1 extends GridView {
 
-    Paint paint = new Paint();
+    final Paint paint = new Paint();
 
     private static final int BEG = 1;
     private static final int MID = 2;
     private static final int END = 4;
 
     // Vertical dividers
-    private int vDividers = MID;
+    private final int vDividers = MID;
     private float vDividerWidthPx = 1;
     private float vOffsetTopPx = 10;
 

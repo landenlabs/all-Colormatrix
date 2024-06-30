@@ -19,7 +19,7 @@ package utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *  @author Dennis Lang  (3/21/2015)
- *  @see http://landenlabs.com
+ *  @see https://landenlabs.com
  *
  */
 
@@ -34,12 +34,15 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.landenlabs.all_colormatrix.R;
 
 
 /**
  * Custom SeekBar
- * @see <a href="http://landenlabs.com/android"> author's web-site </a>
+ * @see <a href="https://landenlabs.com/android"> author's web-site </a>
+ * @noinspection ALL
  */
 @SuppressWarnings("unused")
 public class SeekBarExt1 extends androidx.appcompat.widget.AppCompatSeekBar {
@@ -122,7 +125,7 @@ public class SeekBarExt1 extends androidx.appcompat.widget.AppCompatSeekBar {
         a.recycle();
 
         if (tickMark != -1) {
-            mTickMarkDr = getResources().getDrawable(tickMark);
+            mTickMarkDr = ResourcesCompat.getDrawable(getResources(), tickMark, getContext().getTheme());
         }
     }
 

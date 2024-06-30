@@ -1,7 +1,7 @@
 
 # LanDen Labs - ColorMatrix
 Android ColorMatrix
-<br>[Home website](http://landenlabs.com/android/index.html)
+<br>[Home website](https://landenlabs.com/android/index.html)
 <br>15-Jan-2020
 <br>API 29 AndroidX Java 
 
@@ -12,43 +12,43 @@ Android ColorMatrix
   
 
 ## Web Links
-* [webpage](http://landenlabs.com/android/all-colormatrix/index.html) for detailed information.
+* [webpage](https://landenlabs.com/android/all-colormatrix/index.html) for detailed information.
 * [See use of colorMatrix in all-uitest app](http://github.com/landenlabs/all-uitest) 
-* [C# color matrix program](http://landenlabs.com/cs-colormatrix/colormatrix.html)
+* [C# color matrix program](https://landenlabs.com/cs-colormatrix/colormatrix.html)
 * [C# program posted to Code Project](https://www.codeproject.com/Articles/75006/Color-Matrix-Image-Drawing-Effects)
-* [Home webpage](http://landenlabs.com/android/index.html) for more information.
+* [Home webpage](https://landenlabs.com/android/index.html) for more information.
 
 
 ## Intro
 <a name="page1"></a>
 **Intro Screen** 
 
-<img src="http://landenlabs.com/android/all-colormatrix/intro.jpg" width="400">
+<img src="https://landenlabs.com/android/all-colormatrix/intro.jpg" width="400">
 
 [To Top](#table)
 
 
 ## Example using app
 
-<img src="http://landenlabs.com/android/all-colormatrix/spheres.gif" width="400">
+<img src="https://landenlabs.com/android/all-colormatrix/spheres.gif" width="400">
 
 [To Top](#table)
 
 **Red Filters** 
 
-<img src="http://landenlabs.com/android/all-colormatrix/red.jpg" width="400">
+<img src="https://landenlabs.com/android/all-colormatrix/red.jpg" width="400">
 
 [To Top](#table)
 
 ## Gray Filter
 
-<img src="http://landenlabs.com/android/all-colormatrix/gray.jpg" width="400">
+<img src="https://landenlabs.com/android/all-colormatrix/gray.jpg" width="400">
 
 [To Top](#table)
 
 ## Invert Filters
 
-<img src="http://landenlabs.com/android/all-colormatrix/invert.jpg" width="400">
+<img src="https://landenlabs.com/android/all-colormatrix/invert.jpg" width="400">
 
 [To Top](#table)
 
@@ -72,4 +72,4 @@ limitations under the License.
 ```
 
 [To Top](#table)
-<br>[Home website](http://landenlabs.com/android/index.html)
+<br>[Home website](https://landenlabs.com/android/index.html)

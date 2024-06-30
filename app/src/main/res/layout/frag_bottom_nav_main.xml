@@ -37,7 +37,6 @@
        app:defaultNavHost="true"
        app:navGraph="@navigation/nav_bottom"/>
 
-
     <!-- only supports 5 tab items -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_alignParentBottom="true"

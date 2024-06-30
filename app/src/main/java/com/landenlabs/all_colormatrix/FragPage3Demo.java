@@ -26,17 +26,12 @@ import androidx.annotation.NonNull;
 /**
  * A simple [Fragment] page.
  */
-@SuppressWarnings("FieldCanBeLocal")
 public class FragPage3Demo extends FragBottomNavBase  {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, R.layout.frag_page3_demo);
         setBarVisibility(View.GONE);
-        initUI();
         return root;
-    }
-
-    private void initUI() {
     }
 }

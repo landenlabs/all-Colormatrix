@@ -21,11 +21,12 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.MenuCompat;
+import androidx.core.view.MenuProvider;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,23 +34,27 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A simple [Fragment] page.
  */
-public class FragPage2Demo extends FragBottomNavBase {
+public class FragPage2Demo extends FragBottomNavBase implements MenuProvider {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, R.layout.frag_page2_demo);
-        this.setHasOptionsMenu(true);
+        requireActivity().addMenuProvider(this); // this.setHasOptionsMenu(true);
         setBarTitle("Layouts with Dividers");
         return root;
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NotNull MenuInflater inflater) {
-        menu.clear();
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
+       menu.clear();
     }
 
     @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
-       menu.clear();
+    public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+    }
+
+    @Override
+    public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+        return false;   // TRUE if item handled.
     }
 }

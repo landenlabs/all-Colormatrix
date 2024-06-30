@@ -31,12 +31,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SpinnerImageTextAdapter extends ArrayAdapter<String> {
 
-    private Context ctx;
-    private Data[] data;
+    private final Context ctx;
+    private final Data[] data;
 
     static class Data {
-        String text;
-        int imageRes;
+        final String text;
+        final int imageRes;
         Data(String text, int imageRes) {
             this.text = text;
             this.imageRes = imageRes;

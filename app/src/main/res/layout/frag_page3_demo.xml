@@ -16,12 +16,10 @@
         android:textColor="@color/text_on_bg"
         android:textSize="20sp" />
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/page3_rg"
+        android:layout_below="@+id/page3_btn_title"
         android:layout_marginTop="10dp">
 
         <FrameLayout
