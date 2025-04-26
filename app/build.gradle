@@ -5,16 +5,16 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace "com.landenlabs.all_colormatrix"
 
     defaultConfig {
         applicationId "com.landenlabs.all_colormatrix"
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 35
 
-        versionCode 20630
-        versionName '2.06.30'
+        versionCode 40426
+        versionName '4.04.26'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -77,8 +77,8 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.navigation:navigation-fragment:2.7.7'
-    implementation 'androidx.navigation:navigation-ui:2.7.7'
+    implementation 'androidx.navigation:navigation-fragment:2.8.9'
+    implementation 'androidx.navigation:navigation-ui:2.8.9'
 }
 
 // Rename app
