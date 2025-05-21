@@ -1,7 +1,7 @@
 // all-ColorMatrix
 plugins {
     id ("com.android.application")
-    id ("org.jetbrains.kotlin.android") // Prevents duplicate kotlin warnings
+    // id ("org.jetbrains.kotlin.android") // Prevents duplicate kotlin warnings
 }
 
 android {
@@ -77,15 +77,15 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.navigation:navigation-fragment:2.8.9'
-    implementation 'androidx.navigation:navigation-ui:2.8.9'
+    implementation 'androidx.navigation:navigation-fragment:2.9.0'
+    implementation 'androidx.navigation:navigation-ui:2.9.0'
 }
 
 // Rename app
 android.applicationVariants.configureEach { variant ->
     variant.outputs.configureEach {
-        def ourname = project.parent.name
-        outputFileName = "$ourname-${variant.name}-${variant.versionName}.apk"
+        def ourName = project.parent.name
+        outputFileName = "$ourName-${variant.name}-${variant.versionName}.apk"
         println "out name= $outputFileName"
     }
 }

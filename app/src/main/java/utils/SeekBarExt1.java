@@ -19,7 +19,7 @@ package utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *  @author Dennis Lang  (3/21/2015)
- *  @see https://landenlabs.com
+ *  @see https://LanDenLabs.com
  *
  */
 
@@ -41,7 +41,7 @@ import com.landenlabs.all_colormatrix.R;
 
 /**
  * Custom SeekBar
- * @see <a href="https://landenlabs.com/android"> author's web-site </a>
+ * @see <a href="https://LanDenLabs.com/android"> author's web-site </a>
  * @noinspection ALL
  */
 @SuppressWarnings("unused")
