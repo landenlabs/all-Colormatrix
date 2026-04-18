@@ -1,21 +1,22 @@
 // all-ColorMatrix
 plugins {
-    id ("com.android.application")
-    // id ("org.jetbrains.kotlin.android") // Prevents duplicate kotlin warnings
+    id 'com.android.application'
 }
 
 android {
-    compileSdk 35
-    namespace "com.landenlabs.all_colormatrix"
+    namespace = "com.landenlabs.all_colormatrix"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId "com.landenlabs.all_colormatrix"
-        minSdkVersion 23
-        targetSdkVersion 35
+        applicationId = "com.landenlabs.all_colormatrix"
+        minSdk  = 26
+        targetSdk = 36
 
-        versionCode 40426
-        versionName '4.04.26'
-
+        versionCode = 60419
+        versionName = '6.04.19'
+        // Restore the versionName resource for layouts
+        resValue "string", "versionName", "v" + versionName
+        
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Limit languages to following list.
@@ -24,9 +25,14 @@ android {
         buildConfigField "long", "BuildTimeMilli", System.currentTimeMillis() + "L"
     }
 
-    // Save app version in string so resource can be used in layouts
-    applicationVariants.configureEach { variant ->
-        variant.resValue "string", "versionName", "v" + variant.versionName
+    buildFeatures {
+        buildConfig = true
+        resValues = true
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     signingConfigs {
@@ -34,7 +40,6 @@ android {
     }
 
     // Load signing config (does not work for command line builds)
-    // println("Setting release=${rootDir}/release.properties")
     if (file("${rootDir}/release.properties").exists()) {
         def props = new Properties()
         props.load(new FileInputStream(file("${rootDir}/release.properties")))
@@ -52,11 +57,12 @@ android {
 
             // List of resources removed at end of generated mapping file:
             // grep unused ./app/build/outputs/mapping/demoRelease/resources.txt
-            shrinkResources true
+            shrinkResources = true
 
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig = signingConfigs.release
 
+            // Limit languages to following list.
             ndk {
                 // abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
                 abiFilters 'armeabi-v7a', 'arm64-v8a'
@@ -67,7 +73,6 @@ android {
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile).tap {
             configureEach {
-                // Enable verbose lint reporting during build.
                 options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
             }
         }
@@ -75,17 +80,22 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.navigation:navigation-fragment:2.9.0'
-    implementation 'androidx.navigation:navigation-ui:2.9.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
+    implementation 'androidx.navigation:navigation-fragment:2.9.7'
+    implementation 'androidx.navigation:navigation-ui:2.9.7'
 }
 
 // Rename app
-android.applicationVariants.configureEach { variant ->
-    variant.outputs.configureEach {
-        def ourName = project.parent.name
-        outputFileName = "$ourName-${variant.name}-${variant.versionName}.apk"
-        println "out name= $outputFileName"
-    }
+androidComponents {
+    onVariants(selector().all(), { variant ->
+        variant.outputs.forEach { output ->
+            def ourName = project.parent.name
+            def buildType = variant.buildType
+            def versionStr = variant.outputs[0].versionName.get().replaceAll("-.*", "")
+            def flavor = variant.flavorName ?: ""
+            def newNameRoot = "${ourName}${flavor}-${buildType}-${versionStr}"
+            output.outputFileName.set("${newNameRoot}.apk")
+        }
+    })
 }

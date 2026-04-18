@@ -1,9 +1,12 @@
 
 # LanDen Labs - ColorMatrix
 Android ColorMatrix
+<br>18-Arp-2026
+<br>API 36 AndroidX Java
 <br>[Home website](https://landenlabs.com/android/index.html)
-<br>15-Jan-2020
-<br>API 29 AndroidX Java 
+
+<img src="screenshots/landenlabs.webp" width="300" alt="Logo">
+
 
 **Demonstrate Android ColorMatrix and ColorMatrixColorFilter**
 
@@ -56,7 +59,7 @@ Android ColorMatrix
 ## License
 
 ```
-Copyright 2020 Dennis Lang
+Copyright 2026 Dennis Lang
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
