@@ -5,7 +5,7 @@ Android ColorMatrix
 <br>API 36 AndroidX Java
 <br>[Home website](https://landenlabs.com/android/index.html)
 
-<img src="screenshots/landenlabs.webp" width="300" alt="Logo">
+<img src="screens/landenlabs.webp" width="300" alt="Logo">
 
 
 **Demonstrate Android ColorMatrix and ColorMatrixColorFilter**
@@ -26,32 +26,32 @@ Android ColorMatrix
 <a name="page1"></a>
 **Intro Screen** 
 
-<img src="https://landenlabs.com/android/all-colormatrix/intro.jpg" width="400">
+<img src="screens/intro.jpg" width="400">
 
 [To Top](#table)
 
 
 ## Example using app
 
-<img src="https://landenlabs.com/android/all-colormatrix/spheres.gif" width="400">
+<img src="screens/spheres.gif" width="400">
 
 [To Top](#table)
 
 **Red Filters** 
 
-<img src="https://landenlabs.com/android/all-colormatrix/red.jpg" width="400">
+<img src="screens/red.jpg" width="400">
 
 [To Top](#table)
 
 ## Gray Filter
 
-<img src="https://landenlabs.com/android/all-colormatrix/gray.jpg" width="400">
+<img src="screens/gray.jpg" width="400">
 
 [To Top](#table)
 
 ## Invert Filters
 
-<img src="https://landenlabs.com/android/all-colormatrix/invert.jpg" width="400">
+<img src="screens/invert.jpg" width="400">
 
 [To Top](#table)
 
